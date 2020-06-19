@@ -46,6 +46,7 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
 
   const addColor = (e) => {
     e.preventDefault();
+    document.getElementById( 'addForm' ).reset();
     axiosWithAuth()
       .post('colors', newColor)
       .then((res) => {
@@ -129,7 +130,7 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
       )}
 
       {/* stretch - build another form here to add a color */}
-      <form id='addForm'>
+      <form id='addForm' onSubmit={addColor}>
         <legend>add color</legend>
         <label>
           color name:
@@ -153,7 +154,7 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
         </label>
 
         <div className='button-row'>
-          <button onSubmit={addColor}>save</button>
+          <button type='submit'>save</button>
           <button
             onClick={(e) => {
               document.getElementById('addForm').reset();
