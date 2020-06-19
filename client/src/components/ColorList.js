@@ -10,6 +10,7 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
   // console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+  const [newColor, setNewColor] = useState(initialColor);
 
   const editColor = (color) => {
     setEditing(true);
@@ -26,7 +27,7 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
       .then((res) => {
         console.log(res.data);
         updateColors(colors);
-        setUpdate(true)
+        setUpdate(true);
       })
       .catch((err) => console.log(`edit error: ${err.response}`));
   };
@@ -41,6 +42,31 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
         setEditing(false);
       })
       .catch((err) => console.log(`delete error: ${err.response}`));
+  };
+
+  const addColor = (e) => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post('colors', newColor)
+      .then((res) => {
+        console.log(res);
+        updateColors(res.data);
+      })
+      .catch((err) => console.log(`add error: ${err.response}`));
+  };
+
+  const handleColorChange = (e) => {
+    setNewColor({
+      ...newColor,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleHexChange = (e) => {
+    setNewColor({
+      ...newColor,
+      code: { hex: e.target.value },
+    });
   };
 
   return (
@@ -101,8 +127,44 @@ const ColorList = ({ colors, updateColors, setUpdate }) => {
           </div>
         </form>
       )}
-      <div className='spacer' />
+
       {/* stretch - build another form here to add a color */}
+      <form id='addForm'>
+        <legend>add color</legend>
+        <label>
+          color name:
+          <input
+            type='text'
+            name='color'
+            placeholder='color'
+            onChange={handleColorChange}
+            value={newColor.name}
+          />
+        </label>
+        <label>
+          hex code:
+          <input
+            type='text'
+            name='hex'
+            placeholder='hex'
+            onChange={handleHexChange}
+            value={newColor.code.hex}
+          />
+        </label>
+
+        <div className='button-row'>
+          <button onSubmit={addColor}>save</button>
+          <button
+            onClick={(e) => {
+              document.getElementById('addForm').reset();
+              e.preventDefault();
+            }}
+          >
+            {' '}
+            cancel{' '}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
