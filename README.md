@@ -40,7 +40,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
   - web servers can refer to hardware or software, or both working together
   - hardware: a computer that stores web server software and a website's component files, and is connected to the internet to support physical data interchange with other devices connected to the web
-  - software: a HTTP server that understands URLs (web addresses) and HTTP (protocol browser uses to view webpages) and is accessed through the domain naims of websites that it stores and delivers the content to the end-user's device
+  - software: a HTTP server that understands URLs (web addresses) and HTTP (protocol browser uses to view webpages) and is accessed through the domain names of websites that it stores and delivers the content to the end-user's device
 
 - [x] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
 
